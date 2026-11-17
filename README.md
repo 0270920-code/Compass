@@ -1,79 +1,80 @@
-[README_Neobank_Propuesta_Actualizada.md](https://github.com/user-attachments/files/34948313/README_Neobank_Propuesta_Actualizada.md)
-# Neobank — Simulador educativo de metas de ahorro (FIN506)
+[README.md](https://github.com/user-attachments/files/34948501/README.md)
 
-**Equipo:** Sofía Torres y Bruno Aguirre · Universidad Panamericana · Noviembre de 2026.
+# Neobank — Educational Savings Goal Simulator (FIN506)
 
-## Qué es
+**Team:** Sofía Torres and Bruno Aguirre · Universidad Panamericana · November 2026.
 
-Neobank es un **prototipo educativo** de una experiencia de ahorro. Una persona ficticia llamada Alex puede crear una meta, registrar aportaciones **simuladas** y consultar saldo, avance e historial. **No es un banco**, no abre cuentas, no recibe dinero, no procesa transferencias, no presta y no paga intereses.
+## What it is
 
-> **Estado:** El repositorio contiene `index.html`, `styles.css`, `app.js`, `money.mjs`, `money.test.mjs` y `seed.json`. Las cuatro pruebas automatizadas de lógica monetaria pasaron en la revisión del 16/11/2026. **La ejecución completa en un navegador externo y una URL pública todavía deben verificarse por el equipo.** No describir la aplicación como desplegada sin haberlo comprobado.
+Neobank is an **educational prototype** of a savings experience. A fictional person named Alex can create a savings goal, record **simulated** contributions, and view a balance, progress, and history. **It is not a bank**: it does not open accounts, receive money, process transfers, issue loans, or pay interest.
 
-## Requisitos
+> **Status:** The repository contains `index.html`, `styles.css`, `app.js`, `money.mjs`, `money.test.mjs`, and `seed.json`. The four automated money-logic tests passed during the November 16, 2026 review. **The complete run in an external browser and a public URL still need to be verified by the team.** Do not describe the application as deployed until this has been confirmed.
 
-- Navegador moderno con JavaScript y `localStorage` habilitados.
-- Para las pruebas automáticas: Node.js 20 o posterior.
-- No requiere instalar dependencias de terceros.
+## Requirements
 
-## Cómo ejecutar el prototipo localmente
+- A modern browser with JavaScript and `localStorage` enabled.
+- Node.js 20 or later for automated tests.
+- No third-party dependencies are required.
 
-1. Descarga el repositorio y abre una terminal dentro de la carpeta que contiene `index.html`.
-2. Inicia un servidor de archivos estáticos, por ejemplo:
+## How to run the prototype locally
+
+1. Download the repository and open a terminal inside the folder containing `index.html`.
+2. Start a static file server, for example:
 
    ```bash
    python3 -m http.server 8000
    ```
 
-3. Abre `http://localhost:8000/` en un navegador moderno.
-4. Sigue el flujo de demostración: **Enter demo → Save goal → Add simulated contribution → Review contribution → Confirm simulation → View goal and history**.
-5. Para comenzar de nuevo, selecciona **Reset demo**.
+3. Open `http://localhost:8000/` in a modern browser.
+4. Follow the demo flow: **Enter demo → Save goal → Add simulated contribution → Review contribution → Confirm simulation → View goal and history**.
+5. To start over, select **Reset demo**.
 
-**Verificación pendiente:** el comando anterior es una forma estándar de servir archivos estáticos, pero debe probarse en una computadora limpia y documentarse el resultado. Si el navegador no admite la importación JSON de `app.js`, habrá que corregir compatibilidad antes de la entrega.
+**Verification pending:** the command above is a standard way to serve static files, but it must be tested on a clean computer and the result must be documented. If the browser does not support the JSON import used by `app.js`, compatibility must be fixed before submission.
 
-## Datos y simulaciones
+## Data and simulations
 
-- `seed.json` contiene solo un usuario ficticio: **Alex**.
-- La meta y las aportaciones se almacenan únicamente en el `localStorage` del navegador.
-- Todos los montos monetarios se calculan en **centavos enteros de MXN**.
-- Aportaciones, folios, saldos y progreso son **simulados**. Las comisiones y los intereses en la demostración son MXN 0.00.
-- No se guardan credenciales bancarias ni datos personales reales.
-- La suscripción de **MXN 29 al mes** existe únicamente como **supuesto del modelo financiero**, no como función de cobro del prototipo.
+- `seed.json` contains only one fictional user: **Alex**.
+- The goal and contributions are stored only in the browser's `localStorage`.
+- All monetary amounts are calculated in **integer MXN cents**.
+- Contributions, folios, balances, and progress are **simulated**. Fees and interest in the demo are MXN 0.00.
+- No banking credentials or real personal data are stored.
+- The **MXN 29 per month** subscription exists only as a **financial-model assumption**, not as a payment feature of the prototype.
 
-## Pruebas automáticas
+## Automated tests
 
-Desde la raíz del repositorio:
+From the repository root:
 
 ```bash
 node --test money.test.mjs
 ```
 
-**Resultado observado el 16/11/2026:** 4 pruebas aprobadas; verifican lectura de centavos, suma exacta, rechazo de montos inválidos y límites de enteros seguros. **No son una prueba integral del navegador, del doble clic ni de la separación de usuarios.**
+**Observed result on November 16, 2026:** 4 tests passed; they verify cent parsing, exact summation, rejection of invalid amounts, and safe-integer limits. **They are not an end-to-end test of the browser, double-click handling, or user separation.**
 
-## Estructura principal
+## Main structure
 
-- `SPEC.md`: alcance, flujo, modelo de datos y supuestos.
-- `DECISIONS.md`: decisiones y motivos del equipo.
-- `BITACORA.md`: registro de sesiones que deben completar los integrantes.
-- `PROJECT_METHOD.md` y `AGENTS.md`: método de trabajo y restricciones.
-- `index.html`, `styles.css`, `app.js`: interfaz y lógica del prototipo.
-- `money.mjs`, `money.test.mjs`: lógica monetaria y pruebas.
-- `seed.json`: datos ficticios iniciales.
+- `SPEC.md`: scope, flow, data model, and assumptions.
+- `DECISIONS.md`: team decisions and rationale.
+- `BITACORA.md`: session log to be completed by team members.
+- `PROJECT_METHOD.md` and `AGENTS.md`: working method and constraints.
+- `index.html`, `styles.css`, `app.js`: prototype interface and logic.
+- `money.mjs`, `money.test.mjs`: money logic and tests.
+- `seed.json`: initial fictional data.
 
-## Pendientes importantes para FIN506
+## Important FIN506 items pending
 
-- [ ] **Revisar con el profesor la discrepancia de alcance:** `SPEC.md` excluye login y multiusuario, mientras que la guía final exige autenticación y aislamiento de datos por usuario. No afirmar que se cumple ese requisito.
-- [ ] Confirmar con el profesor la adopción del alcance después de la congelación de Avance 2 (`TODO-verify`).
-- [ ] Verificar el flujo completo en navegador, incluyendo cancelación, doble confirmación, errores y persistencia.
-- [ ] Proporcionar URL pública o build que el profesor pueda abrir sin ayuda; no colocar credenciales en GitHub.
-- [ ] Grabar respaldo del demo de máximo dos minutos.
-- [ ] Alinear el nombre visible `compass` en `index.html` con la marca del proyecto **Neobank**, previa decisión del equipo.
-- [ ] Documentar pull requests revisados por el compañero y completar `BITACORA.md` con sesiones reales.
-- [ ] Marcar toda afirmación jurídica no confirmada como `TODO-verify`.
+- [ ] **Review the scope discrepancy with the professor:** `SPEC.md` excludes login and multi-user support, while the final guide requires authentication and per-user data isolation. Do not claim that this requirement is met.
+- [ ] Confirm with the professor that the scope was adopted after the Advancement 2 freeze (`TODO-verify`).
+- [ ] Verify the complete browser flow, including cancellation, double confirmation, errors, and persistence.
+- [ ] Provide a public URL or build that the professor can open without assistance; do not place credentials in GitHub.
+- [ ] Record a backup of the demo, no longer than two minutes.
+- [ ] Align the visible `compass` name in `index.html` with the **Neobank** project brand, after a team decision.
+- [ ] Document pull requests reviewed by the teammate and complete `BITACORA.md` with real sessions.
+- [ ] Mark any unconfirmed legal statement as `TODO-verify`.
 
-## Modelo financiero y validación
+## Financial model and validation
 
-La encuesta exploratoria del equipo tuvo **30 respuestas**; en la pregunta de precio hubo **28 respuestas válidas**, de las cuales **8** dijeron que pagarían MXN 29 al mes. Esto **no equivale a clientes reales**. Las proyecciones de usuarios, CAC, churn, ingresos y valuación son hipótesis y se documentan en el Excel financiero de FIN506.
+The team's exploratory survey received **30 responses**; the pricing question had **28 valid responses**, of which **8** said they would pay MXN 29 per month. This **does not represent actual customers**. User, CAC, churn, revenue, and valuation projections are hypotheses documented in the FIN506 financial spreadsheet.
 
 ---
 
-**Antes de sustituir el README del repositorio:** ambos integrantes deben revisar este texto, ejecutar las instrucciones, aprobar los cambios por pull request y registrar la sesión real en `BITACORA.md`.
+**Before replacing the repository README:** both team members should review this text, run the instructions, approve the changes through a pull request, and record the actual session in `BITACORA.md`.
