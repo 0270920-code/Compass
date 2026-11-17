@@ -1,59 +1,79 @@
-# Neobank savings-goal demo — FIN506
+[README_Neobank_Propuesta_Actualizada.md](https://github.com/user-attachments/files/34948313/README_Neobank_Propuesta_Actualizada.md)
+# Neobank — Simulador educativo de metas de ahorro (FIN506)
 
-**Owners:** Bruno Aguirre and Sofia Torres · **Scope approved by team:** 2026-11-05
+**Equipo:** Sofía Torres y Bruno Aguirre · Universidad Panamericana · Noviembre de 2026.
 
-A mobile-first **educational simulation**, not a real bank. One fictional student, Alex, creates a savings goal, confirms fake contributions, and sees a simulated MXN balance and progress. No real money, identity checks, third-party APIs or credentials.
+## Qué es
 
-## Status
+Neobank es un **prototipo educativo** de una experiencia de ahorro. Una persona ficticia llamada Alex puede crear una meta, registrar aportaciones **simuladas** y consultar saldo, avance e historial. **No es un banco**, no abre cuentas, no recibe dinero, no procesa transferencias, no presta y no paga intereses.
 
-The **six-file harness is prepared**; no working application has been built or tested in this package. The course scope freeze (2026-10-22) precedes team approval: **TODO-verify** that the instructor accepts late adoption. Do not describe the app as already functional.
+> **Estado:** El repositorio contiene `index.html`, `styles.css`, `app.js`, `money.mjs`, `money.test.mjs` y `seed.json`. Las cuatro pruebas automatizadas de lógica monetaria pasaron en la revisión del 16/11/2026. **La ejecución completa en un navegador externo y una URL pública todavía deben verificarse por el equipo.** No describir la aplicación como desplegada sin haberlo comprobado.
 
-## Requirements
+## Requisitos
 
-- A modern desktop or mobile browser with JavaScript and localStorage enabled.
-- Node.js **20+** only for built-in `node:test` tests when implemented.
-- VS Code optional for editing. **No third-party packages** and no npm install required under approved SPEC.
+- Navegador moderno con JavaScript y `localStorage` habilitados.
+- Para las pruebas automáticas: Node.js 20 o posterior.
+- No requiere instalar dependencias de terceros.
 
-## How to run (once the source exists)
+## Cómo ejecutar el prototipo localmente
 
-1. Open the repository folder in VS Code.
-2. Open the project's `index.html` using a browser. The app must use relative ES-module imports. **Note:** some browsers restrict `file://` module loading; the build will need a verified local static-server command if so. No server implementation or command has been tested yet.
-3. Follow the single demo flow: enter demo → create goal → enter fake contribution → confirm → view balance and history.
-4. Verify that every screen identifies the simulation as `Demo mode · No real money or bank account`.
+1. Descarga el repositorio y abre una terminal dentro de la carpeta que contiene `index.html`.
+2. Inicia un servidor de archivos estáticos, por ejemplo:
 
-**Run instructions are provisional** until the app exists and has been tested on a clean machine. The team must replace them with verified commands and expected results before the Demo Day.
+   ```bash
+   python3 -m http.server 8000
+   ```
 
-## Tests (after they are implemented)
+3. Abre `http://localhost:8000/` en un navegador moderno.
+4. Sigue el flujo de demostración: **Enter demo → Save goal → Add simulated contribution → Review contribution → Confirm simulation → View goal and history**.
+5. Para comenzar de nuevo, selecciona **Reset demo**.
 
-Node's built-in test runner is the only approved testing facility:
+**Verificación pendiente:** el comando anterior es una forma estándar de servir archivos estáticos, pero debe probarse en una computadora limpia y documentarse el resultado. Si el navegador no admite la importación JSON de `app.js`, habrá que corregir compatibilidad antes de la entrega.
+
+## Datos y simulaciones
+
+- `seed.json` contiene solo un usuario ficticio: **Alex**.
+- La meta y las aportaciones se almacenan únicamente en el `localStorage` del navegador.
+- Todos los montos monetarios se calculan en **centavos enteros de MXN**.
+- Aportaciones, folios, saldos y progreso son **simulados**. Las comisiones y los intereses en la demostración son MXN 0.00.
+- No se guardan credenciales bancarias ni datos personales reales.
+- La suscripción de **MXN 29 al mes** existe únicamente como **supuesto del modelo financiero**, no como función de cobro del prototipo.
+
+## Pruebas automáticas
+
+Desde la raíz del repositorio:
 
 ```bash
-node --test
+node --test money.test.mjs
 ```
 
-This is the intended command, **not a claim that tests already exist or pass**. Tests should cover parsing MXN to integer cents, summing contributions, invalid amounts, double confirmation and goal completion.
+**Resultado observado el 16/11/2026:** 4 pruebas aprobadas; verifican lectura de centavos, suma exacta, rechazo de montos inválidos y límites de enteros seguros. **No son una prueba integral del navegador, del doble clic ni de la separación de usuarios.**
 
-## Required root files
+## Estructura principal
 
-- `PROJECT_METHOD.md` — exact official FIN506 handout, unchanged.
-- `SPEC.md` — team-approved product definition, stack, business assumptions and single flow.
-- `AGENTS.md` — original eight golden rules plus product rules.
-- `BITACORA.md` — per-session entries **written by the team**, not the coding agent.
-- `DECISIONS.md` — dated human-approved decisions and reasons.
-- `README.md` — the repository's setup and run guide.
+- `SPEC.md`: alcance, flujo, modelo de datos y supuestos.
+- `DECISIONS.md`: decisiones y motivos del equipo.
+- `BITACORA.md`: registro de sesiones que deben completar los integrantes.
+- `PROJECT_METHOD.md` y `AGENTS.md`: método de trabajo y restricciones.
+- `index.html`, `styles.css`, `app.js`: interfaz y lógica del prototipo.
+- `money.mjs`, `money.test.mjs`: lógica monetaria y pruebas.
+- `seed.json`: datos ficticios iniciales.
 
-## AI workflow and stop gates
+## Pendientes importantes para FIN506
 
-At the start of every coding session, read `PROJECT_METHOD.md`, `SPEC.md`, `AGENTS.md` and the latest `BITACORA.md` entry. Follow **checkpoint → orient → plan → build → verify (independent reviewer) → decide → log**. Any code change needs an approved plan and named files. Ask before new packages, top-level folders, data model changes, financial-logic changes, deletion or regulatory statements. Never access secrets or use real user information.
+- [ ] **Revisar con el profesor la discrepancia de alcance:** `SPEC.md` excluye login y multiusuario, mientras que la guía final exige autenticación y aislamiento de datos por usuario. No afirmar que se cumple ese requisito.
+- [ ] Confirmar con el profesor la adopción del alcance después de la congelación de Avance 2 (`TODO-verify`).
+- [ ] Verificar el flujo completo en navegador, incluyendo cancelación, doble confirmación, errores y persistencia.
+- [ ] Proporcionar URL pública o build que el profesor pueda abrir sin ayuda; no colocar credenciales en GitHub.
+- [ ] Grabar respaldo del demo de máximo dos minutos.
+- [ ] Alinear el nombre visible `compass` en `index.html` con la marca del proyecto **Neobank**, previa decisión del equipo.
+- [ ] Documentar pull requests revisados por el compañero y completar `BITACORA.md` con sesiones reales.
+- [ ] Marcar toda afirmación jurídica no confirmada como `TODO-verify`.
 
-Use `.github/chatmodes/reviewer.chatmode.md` for Copilot or `.claude/agents/reviewer.md` for Claude Code. The reviewer is read-only and must not be the builder. Keep `.env` excluded in `.gitignore`.
+## Modelo financiero y validación
 
-## Definition of done
+La encuesta exploratoria del equipo tuvo **30 respuestas**; en la pregunta de precio hubo **28 respuestas válidas**, de las cuales **8** dijeron que pagarían MXN 29 al mes. Esto **no equivale a clientes reales**. Las proyecciones de usuarios, CAC, churn, ingresos y valuación son hipótesis y se documentan en el Excel financiero de FIN506.
 
-- [ ] One fictional-user flow works end to end in under two minutes.
-- [ ] MXN money shown with two decimals; monetary tests pass.
-- [ ] Empty, loading, error and success states work; fake data is clearly identified.
-- [ ] Actual commands in this README have been tested on a clean environment.
-- [ ] A separate reviewer passed the diff; both partners can explain the code.
-- [ ] Small commits exist; the team authored real BITACORA entries.
-- [ ] Scope timing has been discussed with instructor (`TODO-verify` pending).
+---
+
+**Antes de sustituir el README del repositorio:** ambos integrantes deben revisar este texto, ejecutar las instrucciones, aprobar los cambios por pull request y registrar la sesión real en `BITACORA.md`.
